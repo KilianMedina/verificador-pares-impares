@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react"
 
-function App() {
+const App = () => {
+  const [numero, setNumero] = useState('')
+  const [resultado, setResultado] = useState('')
+
+  const numeroAction = (event) => {
+    setNumero(event.target.value)
+  }
+
+  const verificarNumero = () => {
+    const numeroParseado = parseInt(numero)
+    if (isNaN(numeroParseado)) {
+      setResultado('Ingresar un numero valido')
+    } else {
+      setResultado(numeroParseado % 2 === 0 ? `El numero ${numeroParseado} es par` : `El numero ${numeroParseado} es impar`)
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Verificador de numeros pares o impares</h1>
+      <input
+        type="number"
+        placeholder="Ingresa un numero"
+        value={numero}
+        onChange={numeroAction}
+      />
+      <button
+        onClick={verificarNumero}
+      >
+        Verificar
+      </button>
+      <p>{resultado}</p>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
